@@ -84,6 +84,7 @@ instancia1.addProduct(
 
 
 console.log(instancia1.getProducts());
+//Se realizan la busqueda de los productos segun el id solicitado: 
 instancia1.getProductById(2);
 instancia1.getProductById(3);
 instancia1.getProductById(5);
