@@ -38,11 +38,11 @@ class ProductManager {
     }
 
     getProductById(id){
-        const searchId = this.products.find(product => product.id === id);
+        const productFind = this.products.find(product => product.id === id);
        
-        return !searchId
+        return !productFind
           ? console.error("¡Id del producto not found!")
-          : console.log("¡Id del producto encontrado!: ", searchId);
+          : console.log("¡Id del producto encontrado!: ", productFind);
     }
 
 }
