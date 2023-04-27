@@ -2,7 +2,6 @@
 const fs = require("fs");
 
 class ProductManager {
-  #lastId = 0;
 
   constructor() {
     this.path = "./productos.json";
@@ -33,7 +32,7 @@ class ProductManager {
 
         if (!existCode) {
           const product = {
-            id: this.#newId(),
+            id: await this.#newId() + 1,
             title,
             description,
             price,
@@ -53,9 +52,16 @@ class ProductManager {
     }
   }
 
-  #newId() {
-    this.#lastId++;
-    return this.#lastId;
+  async #newId() {
+    const productFile = await this.getProducts();
+  
+     let min = 0;
+     productFile.map((product) => {
+       if (product.id > min) {
+         min = product.id;
+       }
+     });
+     return min;
   }
 
   async getProductById(id) {
@@ -82,7 +88,6 @@ class ProductManager {
         const updateData = {
           ...productFile[findProduct],
           ...updateFile,
-          id: productId,
         };
 
         productFile[findProduct] = updateData;
@@ -169,6 +174,7 @@ async function test () {
 
   //Se elige uno de los productos para eliminar de nuestro array:
   await instancia.deleteProduct(2);
+  await instancia.deleteProduct(4);
   const result4 = await instancia.getProducts();
   console.log(
     "Se realiza una cuarta consulta tras haber eliminado el producto seleccionado del array: ",
