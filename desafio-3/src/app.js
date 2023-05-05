@@ -115,11 +115,11 @@ app.get('/products/:pid', async (req, res) => {
     if(products){
         res.status(200).json({message: `Producto cuyo id es ${pid} fue encontrado: `, products});
     } else {
-        res.status(400).send(`Producto cuyo id es ${pid} no fue encontrado`)
+        res.status(404).send(`Producto cuyo id es ${pid} no fue encontrado`)
     } 
     
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
     console.error(error);
   }
 });
