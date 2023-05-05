@@ -57,9 +57,9 @@ router.post("/:cid/product/:pid", async (req, res) => {
     const { cid, pid } = req.params;
     const product = await cartManager.addProductToCart(Number(cid), Number(pid));
     if (product){
-        res.status(201).send({ status: "success", mensaje: "Producto agregado con éxito!", payload: product });
+        res.status(201).send({ status: "success", mensaje: "Product successfully added to cart!", payload: product });
     }else {
-        res.status(404).send({ status: "error", mensaje:"Product not found!"});
+        res.status(404).send({ status: "error", mensaje:"Product or cart not found!"});
     }
     
   } catch (error) {

@@ -1,6 +1,10 @@
 
 import fs from "fs";
 
+import ProductManager from "./ProductManager.js";
+const productManager = new ProductManager();
+
+
 export default class CartManager {
   constructor(path) {
     this.path = path;
@@ -62,7 +66,7 @@ export default class CartManager {
     }
   }
 
-  async addProductToCart(cid, pid) {
+  async addProductToCart( cid, pid ) {
     try {
         const findCart = await this.getCartById(cid);
         if (findCart) {
@@ -75,14 +79,13 @@ export default class CartManager {
                     product: pid
                 }
                 findCart.products.push(newProd);
+                await fs.promises.writeFile(this.path, JSON.stringify(newProd));
+                return findCart;
             }
-
-            await fs.promises.writeFile(this.path, JSON.stringify(newProd));
-            return findCart;
         } else {
             throw new Error("The cart you are searching for does not exist!");
-        }
-        
+        } 
+
     } catch (error) {
       console.log(error);
     }
