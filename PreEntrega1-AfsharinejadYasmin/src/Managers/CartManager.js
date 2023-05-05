@@ -62,31 +62,30 @@ export default class CartManager {
     }
   }
 
-  async addProductToCart(idCart, idProduct) {
+  async addProductToCart(cid, id) {
     try {
-        const cartFile = await this.getAllCart();
-        const findCart = await this.getCartByID(idCart);
-        
-
+        const findCart = await this.getCartByID(cid);
         if (findCart) {
-            const productExist = findCart.products.find(product => product.id === idProduct);
+            const productExist = findCart.products.find((product) => product.id === id)
             if (productExist) {
-                
+                productExist.quantity++;
             } else {
-
+                const newCart = {
+                    quantity: 1,
+                    product: id
+                }
+                findCart.products.push(newCart);
             }
+
+            await fs.promises.writeFile(this.path, JSON.stringify(newCart));
+            return findCart;
         } else {
             throw Error("The cart you are searching for does not exist!");
         }
         
-
     } catch (error) {
       console.log(error);
     }
   }
 
-  async #newquantity () {
-    const cartFile = await this.getAllCart();
-    
-  }
 }
