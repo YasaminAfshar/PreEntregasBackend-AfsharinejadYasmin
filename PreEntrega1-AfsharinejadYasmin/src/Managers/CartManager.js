@@ -47,13 +47,13 @@ export default class CartManager {
     return min;
   }
 
-  async getCartById(id) {
+  async getCartById(cid) {
     try {
         const cartFile = await this.getAllCart();
-        const cartFind = cartFile.find((cart) => cart.id === id);
+        const cartFind = cartFile.find((cart) => cart.id === cid);
 
         if (cartFind) {
-          return cartFind.products;
+          return cartFind;
         } else {
           return false;
         }
@@ -62,25 +62,25 @@ export default class CartManager {
     }
   }
 
-  async addProductToCart(cid, id) {
+  async addProductToCart(cid, pid) {
     try {
-        const findCart = await this.getCartByID(cid);
+        const findCart = await this.getCartById(cid);
         if (findCart) {
-            const productExist = findCart.products.find((product) => product.id === id)
+            const productExist = findCart.products.find((product) => product.id === pid)
             if (productExist) {
                 productExist.quantity++;
             } else {
-                const newCart = {
+                const newProd = {
                     quantity: 1,
-                    product: id
+                    product: pid
                 }
-                findCart.products.push(newCart);
+                findCart.products.push(newProd);
             }
 
-            await fs.promises.writeFile(this.path, JSON.stringify(newCart));
+            await fs.promises.writeFile(this.path, JSON.stringify(newProd));
             return findCart;
         } else {
-            throw Error("The cart you are searching for does not exist!");
+            throw new Error("The cart you are searching for does not exist!");
         }
         
     } catch (error) {
