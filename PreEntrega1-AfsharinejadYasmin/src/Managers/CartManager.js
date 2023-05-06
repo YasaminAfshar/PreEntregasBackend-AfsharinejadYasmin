@@ -1,19 +1,17 @@
 
 import fs from "fs";
-
-import ProductManager from "./ProductManager.js";
-const productManager = new ProductManager();
-
+import Path from "../path.js";
+const path = Path;
 
 export default class CartManager {
-  constructor(path) {
-    this.path = path;
+  constructor() {
+    this.pathCart = `${path}/fs/carts.json`;
   }
 
   async getAllCart() {
     try {
-      if (fs.existsSync(this.path)) {
-        const carts = await fs.promises.readFile(this.path, "utf-8");
+      if (fs.existsSync(this.pathCart)) {
+        const carts = await fs.promises.readFile(this.pathCart, "utf-8");
         const cartsJS = JSON.parse(carts);
         return cartsJS;
       } else {
@@ -26,14 +24,14 @@ export default class CartManager {
 
   async createCart() {
     try {
-        const cart = {
-            id: (await this.#newId()) + 1,
-            products: []
-        };
-        const cartFile = await this.getAllCart();
-        cartFile.push(cart);
-        await fs.promises.writeFile(this.path, JSON.stringify(cartFile));
-        return cart;
+      const cart = {
+        id: (await this.#newId()) + 1,
+        products: [],
+      };
+      const cartFile = await this.getAllCart();
+      cartFile.push(cart);
+      await fs.promises.writeFile(this.pathCart, JSON.stringify(cartFile));
+      return cart;
     } catch (error) {
       console.log(error);
     }
@@ -53,39 +51,44 @@ export default class CartManager {
 
   async getCartById(cid) {
     try {
-        const cartFile = await this.getAllCart();
-        const cartFind = cartFile.find((cart) => cart.id === cid);
+      const cartFile = await this.getAllCart();
+      const cartFind = cartFile.find((cart) => cart.id === cid);
 
-        if (cartFind) {
-          return cartFind;
-        } else {
-          return false;
-        }
+      if (cartFind) {
+        return cartFind;
+      } else {
+        return false;
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
-  async addProductToCart( cid, pid ) {
+  async addProductToCart(cid, pid) {
     try {
-        const findCart = await this.getCartById(cid);
-        if (findCart) {
-            const productExist = findCart.products.find((product) => product.id === pid)
-            if (productExist) {
-                productExist.quantity++;
-            } else {
-                const newProd = {
-                    quantity: 1,
-                    product: pid
-                }
-                findCart.products.push(newProd);
-                await fs.promises.writeFile(this.path, JSON.stringify(newProd));
-                return findCart;
-            }
-        } else {
-            throw new Error("The cart you are searching for does not exist!");
-        } 
+      let allCarts = await this.getAllCart();
+      const findCart = await this.getCartById(cid);
+      if (findCart) {
+        const productExist = findCart.products.find((product) => product.id === pid);
+        
+        if (!productExist) {
+          const newProd = {
+            quantity: 1,
+            product: pid,
+          };
+          findCart.products.push(newProd);
+          const index = allCarts.findIndex((cart) => cart.id === cid);
+          allCarts[index] = findCart;
+          console.log(allCarts);
+          await fs.promises.writeFile(this.pathCart, JSON.stringify(allCarts));
+          return findCart;
 
+        } else {
+          return (productExist[quantity] = productExist.quantity = +1);
+        }
+      } else {
+        throw new Error("The cart you are searching for does not exist!");
+      }
     } catch (error) {
       console.log(error);
     }

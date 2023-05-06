@@ -1,15 +1,17 @@
 
 import fs from 'fs';
+import Path from "../path.js";
+const path = Path;
 
 export default class ProductManager {
-  constructor(path) {
-    this.path = path;
+  constructor() {
+    this.pathProd = `${path}/fs/products.json`;
   }
 
   async getProducts() {
     try {
-      if (fs.existsSync(this.path)) {
-        const products = await fs.promises.readFile(this.path, "utf-8");
+      if (fs.existsSync(this.pathProd)) {
+        const products = await fs.promises.readFile(this.pathProd, "utf-8");
         const productsJS = JSON.parse(products);
         return productsJS;
       } else {
@@ -39,7 +41,7 @@ export default class ProductManager {
         };
 
         productFile.push(product);
-        await fs.promises.writeFile(this.path, JSON.stringify(productFile));
+        await fs.promises.writeFile(this.pathProd, JSON.stringify(productFile));
         return product;
       } else {
         return `There is already a product with the code ${code}`;
@@ -92,7 +94,7 @@ export default class ProductManager {
         };
          productFile[findProduct] = updateData;
       }
-      await fs.promises.writeFile(this.path, JSON.stringify(productFile));
+      await fs.promises.writeFile(this.pathProd, JSON.stringify(productFile));
     } catch (error) {
       console.log(error);
     }
@@ -107,7 +109,7 @@ export default class ProductManager {
 
       if (findProduct !== -1) {
         productFile.splice(findProduct, 1);
-        await fs.promises.writeFile(this.path, JSON.stringify(productFile));
+        await fs.promises.writeFile(this.pathProd, JSON.stringify(productFile));
         return `¡Removed product with id ${id} successfully!`;
       } else {
         throw new Error(
@@ -121,8 +123,8 @@ export default class ProductManager {
 
   async deleteAllProducts() {
     try {
-      if (fs.existsSync(this.path)) {
-        await fs.promises.unlink(this.path);
+      if (fs.existsSync(this.pathProd)) {
+        await fs.promises.unlink(this.pathProd);
       }
     } catch (error) {
       console.log(error);

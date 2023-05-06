@@ -1,9 +1,10 @@
 
 import { Router } from "express";
 import  ProductManager  from "../Managers/ProductManager.js";
+import { productValidator } from "../middlewares/productValidator.js";
 
 const router = Router();
-const productManager = new ProductManager("./products.json");
+const productManager = new ProductManager();
 
 
 router.get("/", async (req, res) => {
@@ -48,34 +49,21 @@ router.get("/:pid", async (req, res) => {
 });
 
 
-router.post("/", async (req, res) => {
+router.post("/", productValidator, async (req, res) => {
   try {
     const product = req.body;
-    if (
-      !product.title ||
-      !product.description ||
-      product.price === undefined ||
-      !product.code ||
-      !product.category ||
-      product.stock === undefined
-    ) {
-      res
-        .status(400)
-        .send({ status: "error", error: "All fields are required!" });
-    } else {
-      const newProducts = await productManager.addProduct(
-        product.title,
-        product.description,
-        product.price,
-        product.thumbnail,
-        product.code,
-        product.category,
-        product.stock,
-        product.status
-      );
+    const newProducts = await productManager.addProduct(
+      product.title,
+      product.description,
+      product.price,
+      product.thumbnail,
+      product.code,
+      product.category,
+      product.stock
+    );
 
-      res.status(200).json(newProducts);
-    }
+    res.status(200).json(newProducts);
+    
   } catch (error) {
     res.status(404).send({ status: "error", message: error.message });
     console.error(error);
@@ -87,30 +75,11 @@ router.put("/:pid", async (req, res) => {
   try {
     const product = req.body;
     const { pid } = req.params;
-
     const productFile = await productManager.getProductById(Number(pid));
+
     if (productFile) {
-      if (
-        !product.title ||
-        !product.description ||
-        product.price === undefined ||
-        !product.code ||
-        !product.category ||
-        product.stock === undefined ||
-        product.status === undefined
-      ) {
-        res
-          .status(400)
-          .send({ status: "error", error: "All fields are required!" });
-      } else {
-        await productManager.updateProduct(Number(pid), product);
-        res
-          .status(200)
-          .send({
-            status: "success",
-            message: "The product was successfully updated!",
-          });
-      }
+      await productManager.updateProduct(Number(pid), product);
+      res.status(200).send({status: "success", message: "The product was successfully updated!"});
     } else {
       res.status(404).send({ status: "error", error: "Product not found!" });
     }
