@@ -1,0 +1,123 @@
+[
+  {
+    "id": 1,
+    "title": "Kit de 4 Telares Rectos de plástico",
+    "description": "Kit de 4 Telares rectos de diferentes tamaños, material de plástico",
+    "price": 8745,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764511/MULTIMEDIA/img/accesorios/telar-recto_vxhrql.webp",
+    "code": "A10BCD",
+    "category": "kit",
+    "stock": 23,
+    "status": true
+  },
+  {
+    "id": 2,
+    "title": "Pack 6 unidades de Agujas Laneras acero inoxidable",
+    "description": "Pack de 6 Agujas Laneras SURTIDAS CBX de acero de Excelente Calidad",
+    "price": 340,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764508/MULTIMEDIA/img/accesorios/agujaslaneras_ymawot.webp",
+    "code": "A11BCD",
+    "category": "accesorios",
+    "stock": 19,
+    "status": true
+  },
+  {
+    "id": 3,
+    "title": "Set de 13 Agujas con mango de silicona",
+    "description": "Set de 13 Agujas de Crochet con Mango de Silicona",
+    "price": 5338,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764511/MULTIMEDIA/img/accesorios/set-13_sqdfgh.webp",
+    "code": "A12BCD",
+    "category": "kit",
+    "stock": 21,
+    "status": true
+  },
+  {
+    "id": 4,
+    "title": "Set de 18 agujas, tejido circular",
+    "description": "Set de 18 agujas para realizar tejido circular, viene con su aguja lanera especial. Material de plástico y de diferentes tamaños",
+    "price": 3950,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764510/MULTIMEDIA/img/accesorios/set-18-agujas-circular_xhm5xg.webp",
+    "code": "A13BCD",
+    "category": "kit",
+    "stock": 22,
+    "status": true
+  },
+  {
+    "id": 5,
+    "title": "20 Ganchitos de puntos de plástico",
+    "description": "Ganchitos de puntos para tejer de plástico, se lo utiliza como marcador",
+    "price": 410,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764509/MULTIMEDIA/img/accesorios/marcadores-normal_aqqkio.webp",
+    "code": "A14BCD",
+    "category": "accesorios",
+    "stock": 24,
+    "status": true
+  },
+  {
+    "id": 6,
+    "title": "Lana grueso combinado código 002",
+    "description": "Lana 100%  orgánico grueso combinado código 002",
+    "price": 590,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764516/MULTIMEDIA/img/grueso/grueso-002_hswxh7.webp",
+    "code": "A15BCD",
+    "category": "lanas",
+    "stock": 25,
+    "status": true
+  },
+  {
+    "id": 7,
+    "title": "Lana grueso combinado código 004",
+    "description": "Lana 100%  orgánico grueso combinado código 004",
+    "price": 790,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764516/MULTIMEDIA/img/grueso/grueso-004_fmvbg2.webp",
+    "code": "A16BCD",
+    "category": "lanas",
+    "stock": 30,
+    "status": true
+  },
+  {
+    "id": 8,
+    "title": "Lana grueso combinado código 006",
+    "description": "Lana 100%  orgánico grueso combinado código 006",
+    "price": 590,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764516/MULTIMEDIA/img/grueso/grueso-006_lam8nx.webp",
+    "code": "A17BCD",
+    "category": "lanas",
+    "stock": 30,
+    "status": true
+  },
+  {
+    "id": 9,
+    "title": "Set de 4 Agujas Auxiliares de plástico redondas",
+    "description": "Set de 4 Agujas Auxiliares de plástico redondas",
+    "price": 650,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764508/MULTIMEDIA/img/accesorios/agujas-auxiliar_bjwnbx.webp",
+    "code": "A18BCD",
+    "category": "accesorios",
+    "stock": 40,
+    "status": true
+  },
+  {
+    "id": 10,
+    "title": "Protector de punta para agujas pack 4 unidades",
+    "description": "Protector de punta para agujas de tejer en forma de cono",
+    "price": 1000,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764509/MULTIMEDIA/img/accesorios/protector-punta_xjdtqi.webp",
+    "code": "A19BCD",
+    "category": "accesorios",
+    "stock": 50,
+    "status": true
+  },
+  {
+    "id": 11,
+    "title": "Lana fino color GRIS SUAVE (PLATA)",
+    "description": "Lana 100%  orgánico fino color GRIS SUAVE",
+    "price": 680,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764514/MULTIMEDIA/img/fino/fino-gris_vfgz9q.webp",
+    "code": "A20BCD",
+    "category": "lanas",
+    "stock": 35,
+    "status": true
+  }
+]
