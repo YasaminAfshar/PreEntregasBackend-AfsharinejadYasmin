@@ -25,10 +25,10 @@ export default class ProductManager {
     title,
     description,
     price,
-    thumbnails,
     code,
     category,
     stock,
+    thumbnails,
     status = true
   ) {
     try {
@@ -86,7 +86,6 @@ export default class ProductManager {
     }
   }
 
-
   async updateProduct(id, updateFile) {
     try {
       const productFile = await this.getProducts();
@@ -96,17 +95,19 @@ export default class ProductManager {
       if (findProduct === -1) {
         throw new Error(`¡The requested id ${id} does not exist!`);
       } else {
-        const {code} = updateFile;
-        const existCode = productFile.find((product) => product.code === code && product.id !== id);
+        const { code } = updateFile;
+        const existCode = productFile.find(
+          (product) => product.code === code && product.id !== id
+        );
 
         if (!existCode) {
-           const updateData = {
-             ...productFile[findProduct],
-             ...updateFile,
-           };
-           productFile[findProduct] = updateData;
+          const updateData = {
+            ...productFile[findProduct],
+            ...updateFile,
+          };
+          productFile[findProduct] = updateData;
         } else {
-          return(`¡The product code ${code} already exists in another product!`);
+          return `¡The product code ${code} already exists in another product!`;
         }
         await fs.promises.writeFile(
           this.pathFile,

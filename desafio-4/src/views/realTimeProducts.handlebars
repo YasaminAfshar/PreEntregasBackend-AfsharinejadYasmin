@@ -1,0 +1,27 @@
+
+<h2 style="font-family: 'Oswald', sans-serif; text-align: center; font-size: 2.7rem; text-decoration:underline">Socket client</h2>
+
+<form id="form" style="background-color: black; display: flex; flex-direction: column; gap: 10px; width: 600px; margin: 10px auto; border: 2px solid black; padding: 20px" >
+    <label style="font-family: 'Helvetica'; font-weight: bold; font-size: 1.3em; color: white">Nombre del producto</label>
+        <input type="text" name="title" id="title" placeholder="Nombre del producto" style="padding: 5px; outline: 0" required>
+    <label style="font-family: 'Helvetica'; font-weight: bold; font-size: 1.3em; color: white">Descripción</label>
+        <textarea name="description" id="description" placeholder="Descripción del producto" rows="5"  style="resize: none;  outline: 0" required></textarea>
+    <label style="font-family: 'Helvetica'; font-weight: bold; font-size: 1.3em; color: white" >Precio</label>
+        <input type="number" name="price" id="price" placeholder="Precio" style="padding: 5px; outline: 0" required>
+    <label style="font-family: 'Helvetica'; font-weight: bold; font-size: 1.3em; color: white">Código del producto</label>
+        <input type="text" name="code" id="code" placeholder="Código del producto" style="padding: 5px; outline: 0" required>
+    <label style="font-family: 'Helvetica'; font-weight: bold; font-size: 1.3em; color: white">Categoria del producto</label>
+        <input type="text" name="category" id="category" placeholder="Categoría del producto" style="padding: 5px; outline: 0" required>
+    <label style="font-family: 'Helvetica'; font-weight: bold; font-size: 1.3em; color: white">Stock del producto</label>
+        <input type="number" name="stock" id="stock" placeholder="Stock del producto" style="padding: 5px; outline: 0" required>
+    <label style="font-family: 'Helvetica'; font-weight: bold; font-size: 1.3em; color: white">Imágen del producto</label>
+        <input type="url" name="thumbnails" id="thumbnails" placeholder="Url de la imágen" style="padding: 5px; outline: 0" required>
+    <input type="submit" value="Enviar"style="width:200px; padding: 10px; margin: auto; font-size: 1.4em; font-weight: bolder">
+</form>
+
+
+<p id="products"></p>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>

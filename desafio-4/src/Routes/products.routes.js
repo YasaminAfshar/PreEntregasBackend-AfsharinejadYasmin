@@ -71,28 +71,6 @@ router.post("/", productValidator, async (req, res) => {
   }
 });
 
-//Esta ruta se creo para probar la carpeta public:
-router.post("/test-multer", uploader.single('thumbnails'), async (req, res) => {
-  try {
-    const product = req.body;
-    product.thumbnails = req.file.path;
-    const newProducts = await productManager.addProduct(
-      product.title,
-      product.description,
-      product.price,
-      product.thumbnails,
-      product.code,
-      product.category,
-      product.stock
-    );
-
-    res.status(201).json(newProducts);
-  } catch (error) {
-    res.status(404).send({ status: "error", message: error.message });
-    console.error(error);
-  }
-});
-
 
 router.put("/:pid", async (req, res) => {
   try {
