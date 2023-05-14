@@ -38,8 +38,11 @@ const httpServer = app.listen(PORT, () => {
 
 const socketServer = new Server(httpServer);
 
-socketServer.on("connection", (socket) => {
+socketServer.on("connection", async(socket) => {
   console.log("¡🟢 New connection!");
+
+  socketServer.emit("getProducts", await productManager.getProducts());
+
   socket.on("disconnect", () => {
     console.log("¡🔴 User disconnect!");
   });
