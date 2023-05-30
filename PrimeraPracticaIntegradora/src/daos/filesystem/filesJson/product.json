@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "title": "Kit de 4 Telares Rectos de plástico",
+    "description": "Kit de 4 Telares rectos de diferentes tamaños, material de plástico",
+    "price": 8745,
+    "code": "A10BCD",
+    "category": "kit",
+    "stock": 23,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764511/MULTIMEDIA/img/accesorios/telar-recto_vxhrql.webp",
+    "status": true
+  },
+  {
+    "id": 2,
+    "title": "Pack 6 unidades de Agujas Laneras acero inoxidable",
+    "description": "Pack de 6 Agujas Laneras SURTIDAS CBX de acero de Excelente Calidad",
+    "price": 340,
+    "code": "A11BCD",
+    "category": "accesorios",
+    "stock": 19,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764508/MULTIMEDIA/img/accesorios/agujaslaneras_ymawot.webp",
+    "status": true
+  },
+  {
+    "id": 3,
+    "title": "Set de 13 Agujas con mango de silicona",
+    "description": "Set de 13 Agujas de Crochet con Mango de Silicona",
+    "price": 5338,
+    "code": "A12BCD",
+    "category": "kit",
+    "stock": 21,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764511/MULTIMEDIA/img/accesorios/set-13_sqdfgh.webp",
+    "status": true
+  },
+  {
+    "id": 4,
+    "title": "Set de 18 agujas, tejido circular",
+    "description": "Set de 18 agujas para realizar tejido circular, viene con su aguja lanera especial. Material de plástico y de diferentes tamaños",
+    "price": 3950,
+    "code": "A13BCD",
+    "category": "kit",
+    "stock": 22,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764510/MULTIMEDIA/img/accesorios/set-18-agujas-circular_xhm5xg.webp",
+    "status": true
+  },
+  {
+    "id": 5,
+    "title": "Lana grueso combinado código 002",
+    "description": "Lana 100%  orgánico grueso combinado código 002",
+    "price": 590,
+    "code": "A15BCD",
+    "category": "lanas",
+    "stock": 25,
+    "thumbnails": "https://res.cloudinary.com/dsrdpgpzy/image/upload/v1676764516/MULTIMEDIA/img/grueso/grueso-002_hswxh7.webp",
+    "status": true
+  }
+]
