@@ -2,9 +2,9 @@ import { ProductsModel } from "./models/products.model.js";
 
 export default class ProductsDaoMongo {
 
-  async getProducts() {
+  async getProducts(limit) {
     try {
-      const response = await ProductsModel.find({});
+      const response = await ProductsModel.find({}).limit(limit);
       return response;
     } catch (error) {
       console.log(error);

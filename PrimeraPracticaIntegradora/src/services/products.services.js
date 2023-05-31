@@ -5,16 +5,16 @@ const productsManager = new ProductsDaoMongo();
 //const productsManager = new ProductDaoFs();
 
 
-export const getAllService = async () => {
+export const getAllProductsService = async (limit) => {
   try {
-    const docs = await productsManager.getProducts();
+    const docs = await productsManager.getProducts(limit);
     return docs;
   } catch (error) {
         console.log(error);
   }
 };
 
-export const getByIdService = async (id) => {
+export const getProductByIdService = async (id) => {
   try {
     const doc = await productsManager.getProductById(id);
     if (!doc)return(`The product you are searching width ID ${id} could not be found!`);
@@ -35,7 +35,7 @@ export const checkDuplicateCode = async (code) =>{
     }
 } 
 
-export const addService = async (obj) => {
+export const addProductService = async (obj) => {
   try {
     const newProduct = await productsManager.addProduct(obj);
     if (!newProduct)
@@ -48,7 +48,7 @@ export const addService = async (obj) => {
   }
 };
 
-export const updateService = async (
+export const updateProductService = async (
   id, obj ) => {
   try {
     const doc = await productsManager.getProductById(id);
@@ -66,19 +66,18 @@ export const updateService = async (
   }
 };
 
-export const deleteService = async (id) => {
+export const deletProductService = async (id) => {
   try {
     const doc = await productsManager.getProductById(id);
 
     if (!doc) {
-        return (`The product you are searching width ID ${id} could not be found!`);
+      return `The product you are searching width ID ${id} could not be found!`;
     } else {
-        const deleated = await productsManager.deleteProduct(id);
-        return `The product width ID ${id} was deleted successfully!` + deleated;
+      const deleated = await productsManager.deleteProduct(id);
+      return `The product width ID ${id} was deleted successfully!` + deleated;
     }
-
   } catch (error) {
-        console.log(error);
+    console.log(error);
   }
 };
 
