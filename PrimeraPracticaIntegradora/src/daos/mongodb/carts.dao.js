@@ -7,7 +7,7 @@ export default class CartsDaoMongo {
       const response = await CartsModel.find({});
       return response;
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
 
@@ -16,20 +16,20 @@ export default class CartsDaoMongo {
       const response = await CartsModel.create(obj);
       return response;
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
 
   async getCartById(cid) {
     try {
-        const response = await CartsModel.findById(cid);
-        return response;
+      const response = await CartsModel.findById(cid);
+      return response;
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
 
-   async addProductToCart(cid, pid) {
+  /*async addProductToCart(cid, pid) {
     try {
         const allCarts = await CartsModel.find();
         const findCart = await CartsModel.findById(cid);
@@ -63,5 +63,15 @@ export default class CartsDaoMongo {
     } catch (error) {
         console.log(error);
     }
-   }
+  }*/
+
+  async addProductToCart(cid, pid) {
+    try {
+      
+     
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
