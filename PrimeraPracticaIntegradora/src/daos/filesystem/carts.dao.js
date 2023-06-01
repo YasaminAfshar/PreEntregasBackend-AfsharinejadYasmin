@@ -3,7 +3,7 @@ import fs from "fs";
 import ProductDaoFs from "./products.dao.js";
 const productManager = new ProductDaoFs();
 
-import { __dirname } from "../path.js";
+import { __dirname } from "../../path.js";
 
 export default class CartDaoFs {
   constructor() {

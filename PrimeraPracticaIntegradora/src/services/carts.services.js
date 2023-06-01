@@ -16,6 +16,7 @@ export const getCartsAllService = async () => {
 export const getCartByIdService = async (cid) => {
   try {
     const doc = await cartsManager.getCartById(cid);
+    //const doc = await cartsManager.getCartById(Number(cid));
     if (!doc)
       return `The cart you are searching width ID ${cid} could not be found!`;
     else return doc;
@@ -33,9 +34,10 @@ export const createCartService = async () =>{
     }
 };
 
-export const addCProductToCartService = async (cid, pid) =>{
+export const addProductToCartService = async (cid, pid) =>{
     try {
         const doc = await cartsManager.addProductToCart(cid, pid);
+        //const doc = await cartsManager.addProductToCart(Number(cid), Number(pid));
         return doc;
     } catch (error) {
         console.log(error);

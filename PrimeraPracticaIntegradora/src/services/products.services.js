@@ -33,7 +33,7 @@ export const checkDuplicateCode = async (code) =>{
     } catch (error) {
         console.log(error);
     }
-} 
+}  
 
 export const addProductService = async (obj) => {
   try {

@@ -4,22 +4,22 @@ import {
   addProductService,
   updateProductService,
   deletProductService,
-  checkDuplicateCode,
+  checkDuplicateCode
 } from "../services/products.services.js";
 
 export const getProductController = async (req, res, next) => {
   try {
-    /*const docs = await getAllService();
+    /*const docs = await getAllProductsService();
     const { limit } = req.query;
     const productsLimit = docs.slice(0, parseInt(limit));
     if (!limit) {
       res.status(200).send(docs);
     } else {
       res.status(200).send(productsLimit);
-    } */
+    }  */
     const { limit } = req.query;
     const docs = await getAllProductsService(limit);
-    res.status(200).send(docs);
+    res.status(200).send(docs); 
     
   } catch (error) {
     next(error);
@@ -82,7 +82,7 @@ export const updateProductController = async (req, res, next) => {
       thumbnails,
       status,
     } = req.body;
-    await getByIdService(id);
+    await getProductByIdService(id);
 
     const prodUpdated = await updateProductService(id, {
       title,
