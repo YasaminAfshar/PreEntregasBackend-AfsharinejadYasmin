@@ -8,6 +8,8 @@ import "./db/db.js";
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import messagesRouter from "./routes/messages.router.js";
+import viewProducts from "./routes/viewProducts.router.js";
+
 import MessagesDaoMongo from "./daos/mongodb/messages.dao.js";
 const messagesManager = new MessagesDaoMongo();
 
@@ -26,6 +28,8 @@ app.set("views", __dirname + "/views");
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/messages", messagesRouter);
+
+app.use("/products", viewProducts);
 
 const httpServer = app.listen(PORT, () => {
   console.log("🚀 Server listening on port 8080");
@@ -46,10 +50,10 @@ socketServer.on("connection", async (socket) => {
     console.log(`${userName} is logged in`);
   });
 
-socket.on("chat:message", async ({ userName, message }) => {
-  await messagesManager.createMessage(userName, message);
-  socketServer.emit("messages", await messagesManager.getAllMessages());
-});
+  socket.on("chat:message", async ({ userName, message }) => {
+    await messagesManager.createMessage(userName, message);
+    socketServer.emit("messages", await messagesManager.getAllMessages());
+  });
 
   socket.on("newUser", (userName) => {
     socket.broadcast.emit("newUser", userName);
@@ -58,4 +62,5 @@ socket.on("chat:message", async ({ userName, message }) => {
   socket.on("chat:typing", (data) => {
     socket.broadcast.emit("chat:typing", data);
   });
+
 });

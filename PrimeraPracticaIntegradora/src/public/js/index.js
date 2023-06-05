@@ -24,6 +24,7 @@ const btn = document.getElementById("send");
 const output = document.getElementById("output");
 const actions = document.getElementById("actions");
 
+
 btn.addEventListener("click", () => {
   socket.emit("chat:message", {
     userName,
@@ -31,6 +32,7 @@ btn.addEventListener("click", () => {
   });
   message.value = "";
 });
+
 
 socket.on("messages", (data) => {
   actions.innerHTML = "";
@@ -41,6 +43,7 @@ socket.on("messages", (data) => {
     .join(" ");
   output.innerHTML = chatRender;
 });
+
 
 socket.on("newUser", (userName) => {
   Toastify({
@@ -56,9 +59,11 @@ socket.on("newUser", (userName) => {
   }).showToast();
 });
 
+
 message.addEventListener("keyup", () => {
   socket.emit("chat:typing", userName);
 });
+
 
 socket.on("chat:typing", (data) => {
   actions.innerHTML = data
