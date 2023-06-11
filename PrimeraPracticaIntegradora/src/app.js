@@ -27,8 +27,8 @@ app.set("views", __dirname + "/views");
 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
-app.use("/messages", messagesRouter);
 
+app.use("/messages", messagesRouter);
 app.use("/products", viewProducts);
 
 const httpServer = app.listen(PORT, () => {

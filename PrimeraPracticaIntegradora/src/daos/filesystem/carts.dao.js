@@ -66,12 +66,12 @@ export default class CartDaoFs {
     }
   }
 
- async addProductToCart(cid, pid) {
+  async addProductToCart(cid, pid) {
     try {
       let allCarts = await this.getAllCart();
       const allProducts = await productManager.getProducts();
       const findCart = await this.getCartById(cid);
-      const findProduct = allProducts.find(prod => prod.id === pid);
+      const findProduct = allProducts.find((prod) => prod.id === pid);
 
       if (!findProduct) {
         throw new Error(`¡The requested product id ${pid} does not exist!`);
@@ -112,7 +112,50 @@ export default class CartDaoFs {
           throw new Error("The cart you are searching for does not exist!");
         }
       }
-      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async deleteProductFromCart(cid, pid) {
+    try {
+      let allCarts = await this.getAllCart();
+      const findCart = await this.getCartById(cid);
+
+      if (findCart) {
+        const productIndex = findCart.products.findIndex(
+          (product) => product.product === pid
+        );
+        if (productIndex !== -1) {
+          findCart.products.splice(productIndex, 1);
+          const index = allCarts.findIndex((cart) => cart.id === cid);
+          allCarts[index] = findCart;
+          await fs.promises.writeFile(this.pathFile, JSON.stringify(allCarts));
+          return findCart;
+        } else {
+          throw new Error(
+            "The product you are searching for does not exist in the cart!"
+          );
+        }
+      } else {
+        throw new Error("The cart you are searching for does not exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async deleteProductToCart(cid) {
+    try {
+      let allCarts = await this.getAllCart();
+      const index = allCarts.findIndex((cart) => cart.id === cid);
+      if (index !== -1) {
+        allCarts[index].products = [];
+        await fs.promises.writeFile(this.pathFile, JSON.stringify(allCarts));
+        return allCarts[index];
+      } else {
+        throw new Error("The cart you are searching for does not exist!");
+      }
     } catch (error) {
       console.log(error);
     }

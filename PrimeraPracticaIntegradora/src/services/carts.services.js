@@ -43,3 +43,26 @@ export const addProductToCartService = async (cid, pid) =>{
         console.log(error);
     }
 };
+
+
+export const deleteProductToCartService = async (cid) => {
+  try {
+    const doc = await cartsManager.deleteProductToCart(cid);
+    //const doc = await cartsManager.deleteProductToCart(Number(cid));
+    return doc;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const deleteProductFromCartService = async (cid, pid) => {
+  try {
+    const doc = await cartsManager.deleteProductFromCart(cid, pid);
+    //const doc = await cartsManager.deleteProductFromCart(Number(cid), Number(pid));
+    return doc;
+  } catch (error) {
+    console.log(error);
+  }
+};
+

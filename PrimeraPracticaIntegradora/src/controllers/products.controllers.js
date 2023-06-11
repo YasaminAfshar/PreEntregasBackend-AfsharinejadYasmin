@@ -17,8 +17,10 @@ export const getProductController = async (req, res, next) => {
     } else {
       res.status(200).send(productsLimit);
     }  */
+
     const { limit } = req.query;
-    const docs = await getAllProductsService(limit);
+    const parsedLimit = limit ? parseInt(limit) : 10;
+    const docs = await getAllProductsService(parsedLimit);
     res.status(200).send(docs); 
     
   } catch (error) {
