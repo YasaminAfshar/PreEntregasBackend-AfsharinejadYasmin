@@ -3,9 +3,11 @@ import {
   getProductByIdService,
   addProductService,
   updateProductService,
-  deletProductService,
+  deleteProductService,
   checkDuplicateCode
 } from "../services/products.services.js";
+
+
 
 export const getProductController = async (req, res, next) => {
   try {
@@ -18,11 +20,30 @@ export const getProductController = async (req, res, next) => {
       res.status(200).send(productsLimit);
     }  */
 
-    const { limit } = req.query;
-    const parsedLimit = limit ? parseInt(limit) : 10;
-    const docs = await getAllProductsService(parsedLimit);
-    res.status(200).send(docs); 
-    
+    let { page, limit, sort, filter } = req.query;
+    page == null ? (page = 1) : (page = page);
+    const result = await getAllProductsService(page, limit, sort, filter);
+    const prevPageLink = result.hasPrevPage
+      ? `http://localhost:8080/api/products?page=${result.prevPage}`
+      : null;
+    const nextPageLink = result.hasNextPage
+      ? `http://localhost:8080/api/products?page=${result.nextPage}`
+      : null;
+    res.json({
+      status: result ? "success" : "error",
+      payload: result.docs,
+      info: {
+        totalDocs: result.totalDocs,
+        totalPages: result.totalPages,
+        currPage: Number(page),
+        prevPage: result.prevPage,
+        nextPage: result.nextPage,
+        hasPrevPage: result.hasPrevPage,
+        hasNextPage: result.hasNextPage,
+        prevPageLink,
+        nextPageLink,
+      },
+    });
   } catch (error) {
     next(error);
   }
@@ -105,7 +126,7 @@ export const updateProductController = async (req, res, next) => {
 export const deleteProductController = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const productDeleted = await deletProductService(id);
+    const productDeleted = await deleteProductService(id);
     res.status(200).send(productDeleted);
   } catch (error) {
     next(error);

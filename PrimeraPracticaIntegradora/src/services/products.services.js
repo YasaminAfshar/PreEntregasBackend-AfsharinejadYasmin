@@ -5,22 +5,13 @@ const productsManager = new ProductsDaoMongo();
 //const productsManager = new ProductDaoFs();
 
 
-export const getAllProductsService = async (limit) => {
+export const getAllProductsService = async (page, limit, sort, filter) => {
   try {
-    const docs = await productsManager.getProducts(limit);
-    return docs.map((product) => ({
-        id: product.id,
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        code: product.code,
-        category: product.category,
-        stock: product.stock,
-        thumbnails: product.thumbnails,
-        status: product.status
-    }));
+    const docs = await productsManager.getProducts(page, limit, sort, filter);
+    
+    return docs;
   } catch (error) {
-        console.log(error);
+    console.log(error);
   }
 };
 
@@ -76,7 +67,7 @@ export const updateProductService = async (
   }
 };
 
-export const deletProductService = async (id) => {
+export const deleteProductService = async (id) => {
   try {
     const doc = await productsManager.getProductById(id);
 

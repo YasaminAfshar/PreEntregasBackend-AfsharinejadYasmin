@@ -6,6 +6,7 @@ import {
   addProductToCartService,
   deleteProductToCartService,
   deleteProductFromCartService,
+  updateProductQuantityService,
 } from "../services/carts.services.js";
 
 export const getCartsController = async (req, res, next) => {
@@ -56,6 +57,27 @@ export const addProductToCartController = async (req, res, next) => {
   }
 };
 
+export const updateProductQuantityController = async (req,res, next) => {
+  try {
+    const { cid, pid } = req.params;
+    const { quantity } = req.body;
+
+    const updatedCart = await updateProductQuantityService(cid, pid, quantity);
+    if (!updatedCart) {
+      return res.status(404).json({ message: "Cart or product not found" });
+    }
+
+    return res
+      .status(200)
+      .json({
+        message: "Product quantity updated successfully",
+        payload: updatedCart,
+      });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export const deleteProductToCartController = async (req, res, next) => {
   try {
     const {cid} = req.params;
@@ -77,7 +99,7 @@ export const deleteProductFromCartController = async (req, res, next) => {
     const productDeleted = await deleteProductFromCartService(cid,pid); 
     //const productDeleted = await deleteProductFromCartService(Number(cid), Number(pid)); 
     if (productDeleted ) {
-      res.status(201).send({status: "success",mensaje: "The product/s you have selected has/have been successfully deleted from cart!",payload: productDeleted });
+      res.status(201).send({status: "success",mensaje: "The product/s you have selected has/have been successfully deleted from cart!"});
     } else {
       res.status(404).send({status: "error",mensaje:"The product or cart you are searching for could not be found!"});
     } 

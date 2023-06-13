@@ -2,11 +2,21 @@
 import { ProductsModel } from "./models/products.model.js";
 
 export default class ProductsDaoMongo {
-
-  async getProducts(limit) {
+  async getProducts(page = 1, limit = 10, sort, filter) {
     try {
-      const response = await ProductsModel.find({}).limit(limit);
-      return response;
+      if (sort == "asc" || sort == "desc") {
+        const response = await ProductsModel.paginate(
+          filter != undefined ? { category: filter } : {},
+          { page, limit, sort: { price: sort } }
+        );
+        return response;
+      } else if (sort != "asc" && sort != "desc") {
+        const response = await ProductsModel.paginate(
+          filter != undefined ? { category: filter } : {},
+          { page, limit }
+        );
+        return response;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -21,14 +31,14 @@ export default class ProductsDaoMongo {
     }
   }
 
-  async checkDuplicateCode (code) {
+  async checkDuplicateCode(code) {
     try {
       const existingProduct = await ProductsModel.findOne({ code });
       return existingProduct;
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   async addProduct(obj) {
     try {
@@ -56,5 +66,4 @@ export default class ProductsDaoMongo {
       console.log(error);
     }
   }
-
 }

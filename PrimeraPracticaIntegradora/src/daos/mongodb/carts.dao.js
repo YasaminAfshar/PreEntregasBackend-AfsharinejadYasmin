@@ -1,5 +1,8 @@
 import { CartsModel } from "./models/carts.model.js";
 import { ProductsModel } from "./models/products.model.js";
+import ProductsDaoMongo from "./products.dao.js";
+const productManager = new ProductsDaoMongo();
+
 export default class CartsDaoMongo {
   async getAllCart() {
     try {
@@ -33,40 +36,29 @@ export default class CartsDaoMongo {
   async addProductToCart(cid, pid) {
     try {
       const findCart = await CartsModel.findById(cid);
-      const allProducts = await ProductsModel.find();
-      const findProduct = allProducts.find((prod) => prod.id === pid);
+      const findProduct = await ProductsModel.findById(pid);
 
       if (!findProduct) {
-        throw new Error(`¡The requested product id ${pid} does not exist!`);
+        throw new Error(`The requested product id ${pid} does not exist!`);
       } else {
         if (findCart) {
           const productExist = findCart.product.find(
-            (product) => product.product === pid
+            (product) => product.product.toString() === pid
           );
           if (!productExist) {
             const newProd = {
               quantity: 1,
-              product: pid,
+              product: findProduct._id,
             };
             findCart.product.push(newProd);
-            await findCart.save();
-            await CartsModel.findByIdAndUpdate(
-              { _id: cid },
-              { $set: findCart }
-            );
-            return findCart;
           } else {
             const indexProduct = findCart.product.findIndex(
-              (elemento) => elemento.product === pid
+              (elemento) => elemento.product.toString() === pid
             );
             findCart.product[indexProduct].quantity += 1;
-            await findCart.save();
-            await CartsModel.findByIdAndUpdate(
-              { _id: cid },
-              { $set: findCart }
-            );
-            return findCart;
           }
+          await findCart.save();
+          return findCart;
         } else {
           throw new Error("The cart you are searching for does not exist!");
         }
@@ -74,8 +66,30 @@ export default class CartsDaoMongo {
     } catch (error) {
       console.log(error);
     }
-  } 
+  }
 
+  async updateProductQuantity(cid, pid, quantity) {
+   try {
+     const cart = await CartsModel.findById(cid);
+     if (!cart) {
+       throw new Error("Cart not found");
+     }
+
+     const productToUpdate = cart.product.find(
+       (product) => product.product.toString() === pid
+     );
+     if (!productToUpdate) {
+       throw new Error("Product not found in cart");
+     }
+
+     productToUpdate.quantity = quantity;
+     await cart.save();
+
+     return cart;
+   } catch (error) {
+     console.log(error);
+   }
+  }
 
   async deleteProductFromCart(cid, pid) {
     try {
@@ -83,15 +97,11 @@ export default class CartsDaoMongo {
 
       if (findCart) {
         const productIndex = findCart.product.findIndex(
-          (product) => product.product === pid
+          (product) => product.product.toString() === pid
         );
         if (productIndex !== -1) {
           findCart.product.splice(productIndex, 1);
           await findCart.save();
-
-          await CartsModel.findByIdAndUpdate(cid, {
-            $pull: { product: { product: pid } },
-          });
           return findCart;
         } else {
           throw new Error(

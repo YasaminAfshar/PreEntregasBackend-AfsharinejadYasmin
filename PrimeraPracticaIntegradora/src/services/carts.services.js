@@ -44,6 +44,15 @@ export const addProductToCartService = async (cid, pid) =>{
     }
 };
 
+export const updateProductQuantityService = async(cid, pid, quantity) => {
+  try {
+      const doc = await cartsManager.updateProductQuantity(cid, pid, quantity);
+      return doc;
+  } catch (error) {
+      console.log(error);
+  }
+}
+
 
 export const deleteProductToCartService = async (cid) => {
   try {
