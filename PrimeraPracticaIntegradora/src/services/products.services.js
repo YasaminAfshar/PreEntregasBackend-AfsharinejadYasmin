@@ -8,7 +8,6 @@ const productsManager = new ProductsDaoMongo();
 export const getAllProductsService = async (page, limit, sort, filter) => {
   try {
     const docs = await productsManager.getProducts(page, limit, sort, filter);
-    
     return docs;
   } catch (error) {
     console.log(error);

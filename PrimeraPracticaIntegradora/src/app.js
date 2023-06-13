@@ -8,7 +8,6 @@ import "./db/db.js";
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import messagesRouter from "./routes/messages.router.js";
-import viewProducts from "./routes/viewProducts.router.js";
 
 import MessagesDaoMongo from "./daos/mongodb/messages.dao.js";
 const messagesManager = new MessagesDaoMongo();
@@ -29,7 +28,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
 app.use("/messages", messagesRouter);
-app.use("/products", viewProducts);
+
 
 const httpServer = app.listen(PORT, () => {
   console.log("🚀 Server listening on port 8080");
