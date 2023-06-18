@@ -27,11 +27,9 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));
 app.use(errorHandler);
 
-
 app.engine("handlebars", handlebars.engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
-
 
 app.use(
   session({
@@ -48,7 +46,6 @@ app.use(
     }),
   })
 );
-
 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
