@@ -3,7 +3,7 @@ import {
   registerController,
   loginController,
   registerErrorController,
-  loginErrorController,
+  loginErrorController
 } from "../controllers/users.controllers.js";
 const router = Router();
 

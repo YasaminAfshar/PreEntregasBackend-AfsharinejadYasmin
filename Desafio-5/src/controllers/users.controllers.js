@@ -61,7 +61,11 @@ export const loginUserController = async (req, res, next) => {
     if (!validate) {
       res.status(404).redirect("/views/login-error");
     } else {
-      res.status(304).redirect("/products");
+      //res.status(304).redirect("/products");
+      const { firstName, lastName, role } = validate;
+      res.redirect(
+        `/products?firstName=${firstName}&lastName=${lastName}&role=${role}`
+      );
     }
   } catch (error) {
     next(error);
@@ -69,13 +73,13 @@ export const loginUserController = async (req, res, next) => {
 };
 export const logoutUserController = async (req, res, next) => {
   try {
-    req.session.destroy((err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.redirect("/views/login");
-      }
-    });
+     req.session.destroy((err) => {
+       if (err) {
+         console.log(err);
+       } else {
+         res.redirect("/views/login");
+       }
+     });
   } catch (error) {
     next(error);
   }

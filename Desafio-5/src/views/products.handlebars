@@ -1,5 +1,14 @@
 
 {{#if products}}
+    <div style="display: flex; justify-content:space-around; background-color:rgba(137, 43, 226, 0.568); padding:20px">
+        <h3 style="font-size: 2.6em; font-family: 'Shadows Into Light', cursive; font-weight: 900; letter-spacing:3px">¡Bienvenido, {{firstName}} {{lastName}}!</h3>
+        <h4 style="font-size: 2.6em; font-family: 'Shadows Into Light', cursive; font-weight: 900; letter-spacing:3px">Rol {{role}} </h4>
+        <form action="/users/logout" method="POST">
+            <button type="submit" style="font-family: 'Exo 2', sans-serif; font-size: 1.4em; background-color: #6F1D90; color: #fff; padding: 8px 16px; border: none; cursor: pointer;">
+                Logout
+            </button>
+    </form>
+    </div>
     <h1 style="font-family: 'Oswald', sans-serif; text-align: center; font-size: 3rem; text-decoration:underline">Lista de productos</h1>
     {{#each products.docs}}
         <div style="width: 90%; border: 2px solid black; display: flex; justify-content: space-between; align-items: center; margin: 20px auto; background-color: #A3E4D7; box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75)">
