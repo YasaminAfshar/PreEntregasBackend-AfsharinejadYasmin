@@ -56,17 +56,22 @@ export const createUserController = async (req, res, next) => {
 };
 export const loginUserController = async (req, res, next) => {
   try {
-    const userData = req.body;
-    const validate = await userDao.loginUser(userData);
-    if (!validate) {
-      res.status(404).redirect("/views/login-error");
-    } else {
-      //res.status(304).redirect("/products");
-      const { firstName, lastName, role } = validate;
-      res.redirect(
-        `/products?firstName=${firstName}&lastName=${lastName}&role=${role}`
-      );
-    }
+   const userData = req.body;
+   const user = await userDao.loginUser(userData);
+   if (!user) {
+     res.status(404).redirect("/views/login-error");
+   } else {
+     const userLogged = {
+       email: user.email,
+       firstName: user.firstName,
+       lastName: user.lastName,
+       role: user.role,
+     };
+
+     req.session.user = userLogged;
+
+     res.redirect(`/products`);
+   }
   } catch (error) {
     next(error);
   }
