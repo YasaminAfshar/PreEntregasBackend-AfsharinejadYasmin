@@ -6,10 +6,8 @@ const productManager = new ProductsDaoMongo();
 
 router.get("/", async (req, res) => {
   try {
-    const products = await productManager.getProducts();
-   
+    let products = await productManager.getProducts();
     const user = req.session.user;
-    console.log(user);
     res.render("products", { products, user });
   } catch (error) {
     console.log(error);

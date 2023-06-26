@@ -61,7 +61,8 @@ export const loginUserController = async (req, res, next) => {
     if (!user) {
       res.status(404).redirect("/views/login-error");
     } else {
-      
+      const userId = await userDao.getUserById(req.session.passport.user);
+      const { firstName, lastName, email, age, role } = userId;
       const userLogged = {
         email: user.email,
         firstName: user.firstName,
@@ -70,7 +71,7 @@ export const loginUserController = async (req, res, next) => {
       };
       
       req.session.user = userLogged;
-      
+      console.log({message:"User logged in successfully!", session: req.session});
       res.redirect(`/products`);
     }
   } catch (error) {
@@ -84,6 +85,7 @@ export const logoutUserController = async (req, res, next) => {
          console.log(err);
        } else {
          res.redirect("/views/login");
+         console.log("¡Logout successfuly!");
        }
      });
   } catch (error) {
