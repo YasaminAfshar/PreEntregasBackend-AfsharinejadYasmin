@@ -30,12 +30,27 @@ export default class UsersDao {
 
   async createUser(user) {
     try {
-      const { firstName, lastName, email, age, password } = user;
-      const newUser = await UserModel.create({
-        ...user,
-        password: createHash(password),
-      });
-      return newUser;
+      const password = user.password;
+      const email = user.email;
+      const existUser = await UserModel.findOne({ email });
+      if (existUser) {
+        return false;
+      } else {
+        if (email === "adminCoder@coder.com" && password === "adminCoder123") {
+          const newUser = await UserModel.create({
+            ...user,
+            role: "admin",
+            password: createHash(password),
+          });
+          return newUser;
+        } else {
+          const newUser = await UserModel.create({
+            ...user,
+            password: createHash(password),
+          });
+          return newUser;
+        }
+      }
     } catch (error) {
       console.log(error);
     }

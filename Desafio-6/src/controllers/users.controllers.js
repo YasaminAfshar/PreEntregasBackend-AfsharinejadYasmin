@@ -32,22 +32,10 @@ export const loginErrorController = async (req, res, next) => {
 };
 export const createUserController = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const userData = req.body;
-    let create = null;
-    if (email === "adminCoder@coder.com" && password === "adminCoder123") {
-      userData.role = "admin";
-      create = await userDao.createUser(userData);
-    } else {
-      create = await userDao.createUser(userData);
-    }
-    if (!create) {
+    const session = req.session;
+    if (!session) {
       res.status(404).redirect("/views/register-error");
     } else {
-      req.session.email = userData.email;
-      req.session.firstName = userData.firstName;
-      req.session.lastName = userData.lastName;
-      req.session.password = userData.password;
       res.status(304).redirect("/views/login");
     }
   } catch (error) {
@@ -72,7 +60,7 @@ export const loginUserController = async (req, res, next) => {
       
       req.session.user = userLogged;
       console.log({message:"User logged in successfully!", session: req.session});
-      res.redirect(`/products`);
+      res.redirect("/products");
     }
   } catch (error) {
     next(error);
@@ -88,6 +76,26 @@ export const logoutUserController = async (req, res, next) => {
          console.log("¡Logout successfuly!");
        }
      });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const githubResponseController = async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, role, isGithub } = req.user;
+    console.log({
+      message: "Register with Github successfull!",
+      session: req.session,
+      userData: {
+        firstName,
+        lastName,
+        email,
+        role,
+        isGithub
+      },
+    });
+    res.redirect("/products");
   } catch (error) {
     next(error);
   }
