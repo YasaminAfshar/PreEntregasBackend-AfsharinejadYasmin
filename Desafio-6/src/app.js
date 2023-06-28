@@ -32,7 +32,13 @@ app.use(express.static(__dirname + "/public"));
 app.use(errorHandler);
 
 
-app.engine("handlebars", handlebars.engine());
+
+app.engine("handlebars", handlebars.engine({
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true
+  }
+}));
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
