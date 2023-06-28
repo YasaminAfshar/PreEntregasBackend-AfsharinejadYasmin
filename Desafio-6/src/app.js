@@ -47,13 +47,10 @@ app.use(
     secret: "sessionKey",
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      maxAge: 60000,
-    },
     store: new MongoStore({
       mongoUrl:
         "mongodb+srv://Q0epJKfa:Q0epJKfa@ecommerce.caamhww.mongodb.net/Ecommerce?retryWrites=true&w=majority",
-      ttl: 60
+      ttl: 20
     }),
   })
 );
